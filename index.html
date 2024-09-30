@@ -10,13 +10,15 @@
         margin-right: auto;
         font-size: 1.2rem;
       }
-      #divAd {
-        display: flex;
+      #divAd,
+      #container {
+        text-align: center;
+        /* display: flex;
         justify-content: center;
-        align-items: center;
-        border: 1px solid;
-        height: 10vh;
-        width: 50%;
+        align-items: center; */
+        /* border: 1px solid; */
+        /* height: fit-content;
+        width: fit-content; */
       }
       #btn {
         display: flex;
@@ -25,14 +27,17 @@
         background-color: #e50914;
         border: none;
       }
-      #container {
-        height: fit-content;
-        width: fit-content;
+      #adVideo,
+      iframe {
+        height: 60vh;
+        width: 50%;
       }
     </style>
   </head>
   <body>
-    <div id="divAd">ad playing wait for ...</div>
+    <div id="divAd">
+      <video id="adVideo" src="./ad.mp4" controls autoplay></video>
+    </div>
     <button id="btn" style="display: none">skip ad</button>
     <div id="container" style="display: none">
       <iframe
@@ -54,9 +59,9 @@
       let adInterval = setInterval(
         () => {
           x--;
-          divAd.innerHTML = `ad playing wait for ...${x}sec to continue`;
           if (x == 0) {
             clearInterval(adInterval);
+            muteAndPauseAd();
             containerDisplay();
           } else if (x == 5) {
             btn.style.display = "block";
@@ -66,12 +71,18 @@
         (x = 11)
       );
       btn.addEventListener("click", () => {
+        clearInterval(adInterval);
+        muteAndPauseAd();
         containerDisplay();
       });
       function containerDisplay() {
         container.style.display = "block";
         btn.style.display = "none";
         divAd.style.display = "none";
+      }
+      function muteAndPauseAd() {
+        adVideo.pause();
+        adVideo.volume = 0;
       }
     </script>
   </body>
