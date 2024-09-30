@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skip Advertisement</title>
+    <style>
+      * {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 1.2rem;
+      }
+      #divAd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid;
+        height: 10vh;
+        width: 50%;
+      }
+      #btn {
+        display: flex;
+        margin-top: 20px;
+        color: white;
+        background-color: #e50914;
+        border: none;
+      }
+      #container {
+        height: fit-content;
+        width: fit-content;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="divAd">ad playing wait for ...</div>
+    <button id="btn" style="display: none">skip ad</button>
+    <div id="container" style="display: none">
+      <iframe
+        width="853"
+        height="480"
+        src="https://www.youtube.com/embed/ePOglweqy7o"
+        title="Hungry Cheetah - OG Glimpse | Pawan Kalyan | Sujeeth | Thaman S | DVV Danayya"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <script>
+      let divAd = document.getElementById("divAd");
+      let btn = document.getElementById("btn");
+      let container = document.getElementById("container");
+      let adInterval = setInterval(
+        () => {
+          x--;
+          divAd.innerHTML = `ad playing wait for ...${x}sec to continue`;
+          if (x == 0) {
+            clearInterval(adInterval);
+            containerDisplay();
+          } else if (x == 5) {
+            btn.style.display = "block";
+          }
+        },
+        1500,
+        (x = 11)
+      );
+      btn.addEventListener("click", () => {
+        containerDisplay();
+      });
+      function containerDisplay() {
+        container.style.display = "block";
+        btn.style.display = "none";
+        divAd.style.display = "none";
+      }
+    </script>
+  </body>
+</html>
